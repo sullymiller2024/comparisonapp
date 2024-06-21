@@ -155,6 +155,8 @@ def highlight_and_merge_data(df, merged_df,cost_codes_with_high_difference):
        new_rows = []
        for index, row in df.iterrows():
            if row['cost_code'] in unique_to_jde:
+               if row.get('jde_cost' , 0) ==0 or row['cost_code'][0] in {'7', '8', '9'}:
+                   continue
                new_row = {col: row.get(col, '') for col in merged_df.columns}
                new_row['description'] = row['cost_code_description']
                new_rows.append(new_row)
